@@ -1,0 +1,709 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Linkora App Download</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: split hero (copy + download left, interactive 3D phone right), then spec strip, tilt-card features, install steps, footer */
+:root {
+  --bg: #F4F3FB;
+  --surface: #FFFFFF;
+  --fg: #15132B;
+  --muted: #5E5B7A;
+  --line: #DAD8EC;
+  --accent: #3D3DF5;
+  --accent-fg: #FFFFFF;
+  --accent-soft: #E6E6FF;
+  --tint1: #FFD9C7;
+  --tint2: #CFF3E2;
+  --sun: #FFC857;
+  --font-display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D0C1E; --surface: #17162E; --fg: #EEEDFB; --muted: #A3A1C4; --line: #2B2A4A;
+    --accent: #8E8EFF; --accent-fg: #0D0C1E; --accent-soft: #25244F; --tint1: #4A2B20; --tint2: #1E4637; --sun: #E3AE3A;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D0C1E; --surface: #17162E; --fg: #EEEDFB; --muted: #A3A1C4; --line: #2B2A4A;
+  --accent: #8E8EFF; --accent-fg: #0D0C1E; --accent-soft: #25244F; --tint1: #4A2B20; --tint2: #1E4637; --sun: #E3AE3A;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  padding-block: 20px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 72px; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+/* Header */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; }
+.brand svg { width: 30px; height: 30px; flex: none; }
+.top a.link { font-size: 14px; color: var(--muted); text-decoration: none; }
+.top a.link:hover { color: var(--fg); }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(40px, 7vw, 70px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  margin: 14px 0 20px;
+  text-wrap: balance;
+}
+h1 em { font-style: normal; color: var(--accent); }
+.lede { font-size: 18px; color: var(--muted); max-width: 46ch; margin: 0 0 28px; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--accent); color: var(--accent-fg);
+  font-family: var(--font-display); font-weight: 700; font-size: 18px;
+  padding: 16px 26px; border-radius: 14px; text-decoration: none;
+  transition: transform 0.15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn svg { width: 22px; height: 22px; }
+.btn-meta { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.notice {
+  margin: 16px 0 0; padding: 12px 14px; border: 1px dashed var(--line); border-radius: 10px;
+  font-size: 14px; color: var(--muted); max-width: 52ch;
+}
+.qr-row { display: flex; align-items: center; gap: 16px; margin-top: 28px; }
+.qr-box { background: #fff; padding: 8px; border-radius: 10px; border: 1px solid var(--line); line-height: 0; }
+.qr-row p { margin: 0; font-size: 14px; color: var(--muted); max-width: 26ch; }
+
+/* 3D stage */
+.stage { min-width: 0; display: flex; flex-direction: column; align-items: center; }
+.gl-wrap { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.gl-host { width: 100%; height: clamp(440px, 50vw, 580px); position: relative; }
+#glCanvas { display: block; width: 100%; height: 100%; cursor: grab; touch-action: pan-y; border-radius: 24px; }
+#glCanvas:focus-visible { outline-offset: -3px; }
+.gl-ctrl { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+.gl-ctrl button { font: 600 13px var(--font-body); color: var(--muted); background: none; border: 0; padding: 8px 16px; border-radius: 999px; cursor: pointer; }
+.gl-ctrl button:hover { color: var(--fg); }
+.gl-ctrl button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
+.gl-hint { margin: 0; font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-align: center; max-width: 44ch; }
+.gl-count { display: inline-block; min-width: 1.6em; padding: 1px 8px; margin-left: 4px; border-radius: 999px; background: var(--accent-soft); color: var(--fg); }
+
+/* CSS phone (fallback when WebGL is unavailable) */
+.phone {
+  width: min(300px, 100%);
+  aspect-ratio: 9 / 18;
+  background: var(--surface);
+  border: 8px solid var(--fg);
+  border-radius: 38px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  box-shadow: 14px 14px 0 var(--accent-soft);
+  transform: rotate(2.5deg);
+}
+.phone-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 14px 8px; font-family: var(--font-display); font-weight: 800; font-size: 20px; letter-spacing: -0.02em; }
+.bar-icons { display: flex; gap: 12px; color: var(--fg); }
+.bar-icons svg { width: 20px; height: 20px; }
+.stories { display: flex; gap: 10px; padding: 4px 12px 10px; overflow: hidden; }
+.story { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: none; }
+.story small { font-size: 10px; color: var(--muted); }
+.ring { width: 50px; height: 50px; border-radius: 50%; padding: 2.5px; background: conic-gradient(var(--accent), #FF7A59, var(--accent)); display: grid; place-items: center; }
+.story.you .ring { background: var(--line); }
+.ring .av { width: 100%; height: 100%; border: 2px solid var(--surface); font-size: 12px; }
+.feed { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+.post { display: flex; flex-direction: column; gap: 6px; }
+.who { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; padding: 0 12px; }
+.who small { font-weight: 400; color: var(--muted); font-size: 10px; }
+.av { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 700; background: var(--accent-soft); flex: none; }
+.av.t1 { background: var(--tint1); } .av.t2 { background: var(--tint2); }
+.pic { position: relative; aspect-ratio: 1 / 0.82; overflow: hidden; background: linear-gradient(180deg, var(--tint1), var(--accent-soft) 75%); }
+.pic::before { content: ""; position: absolute; width: 42px; height: 42px; border-radius: 50%; background: var(--sun); right: 22%; top: 16%; }
+.pic::after { content: ""; position: absolute; left: -10%; right: -10%; bottom: -36%; height: 70%; border-radius: 50%; background: var(--tint2); box-shadow: 70px 14px 0 -6px var(--accent-soft); }
+.acts { display: flex; gap: 12px; padding: 2px 12px 0; }
+.acts svg { width: 20px; height: 20px; }
+.post p { margin: 0; font-size: 12px; line-height: 1.4; padding: 0 12px; }
+.post .meta { font-family: var(--font-mono); font-size: 10px; color: var(--muted); padding: 0 12px; }
+.nav { display: flex; justify-content: space-around; padding: 10px 0 14px; border-top: 1px solid var(--line); }
+.nav i { width: 22px; height: 22px; border-radius: 7px; background: var(--line); display: block; }
+.nav i.on { background: var(--accent); }
+
+/* Spec strip */
+.specs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--line); margin: 0; }
+.spec { padding: 20px 16px; display: flex; flex-direction: column; gap: 4px; border-left: 1px solid var(--line); min-width: 0; }
+.spec:first-child { border-left: 0; padding-left: 0; }
+.spec dt { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.spec dd { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+
+/* Sections */
+h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(28px, 4vw, 40px); letter-spacing: -0.025em; line-height: 1.05; margin: 0 0 24px; text-wrap: balance; }
+.features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.feature {
+  min-width: 0; padding: 22px 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+  transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.feature:hover { box-shadow: 8px 8px 0 var(--accent-soft); }
+.feature h3 { font-family: var(--font-display); font-size: 20px; margin: 0 0 6px; letter-spacing: -0.01em; }
+.feature p { margin: 0; color: var(--muted); max-width: 44ch; }
+
+.install { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 48px; }
+.install h2 { margin-bottom: 12px; }
+.install .sub { color: var(--muted); margin: 0; max-width: 36ch; }
+ol.steps { list-style: none; margin: 0; padding: 0; counter-reset: s; display: flex; flex-direction: column; }
+ol.steps li { counter-increment: s; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); }
+ol.steps li:last-child { border-bottom: 1px solid var(--line); }
+ol.steps li::before { content: counter(s); font-family: var(--font-display); font-weight: 800; font-size: 28px; color: var(--accent); line-height: 1; }
+ol.steps strong { display: block; font-family: var(--font-display); font-size: 18px; margin-bottom: 2px; }
+ol.steps span { color: var(--muted); }
+
+.safe { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px 24px; display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: center; justify-content: space-between; }
+.safe p { margin: 0; max-width: 60ch; }
+.safe p b { font-family: var(--font-display); }
+.hash { font-family: var(--font-mono); font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+
+footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--muted); padding-top: 8px; }
+
+@media (max-width: 820px) {
+  .wrap { gap: 56px; }
+  .hero { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .gl-host { height: 440px; }
+  .specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .spec:nth-child(3) { border-left: 0; padding-left: 0; }
+  .spec:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .features, .install { grid-template-columns: minmax(0, 1fr); }
+  .phone { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn, .feature { transition: none; }
+  .btn:hover { transform: none; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="var(--accent)"/><path d="M10 16a6 6 0 0 1 12 0 6 6 0 0 1-12 0Zm6-3a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" fill="var(--accent-fg)" fill-rule="evenodd"/></svg>
+      <span data-app-name>Linkora</span>
+    </div>
+    <a class="link" href="#install">How to install</a>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Android app &middot; Free</div>
+      <h1>Share your <em>moments</em> with the people who matter.</h1>
+      <p class="lede">Post photos and short videos, share stories that disappear after a day, follow your friends and message anyone. Get the Android app free.</p>
+      <div class="actions">
+        <a id="dl" class="btn" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>
+          Download APK
+        </a>
+        <span class="btn-meta" id="btnMeta"></span>
+      </div>
+      <p class="notice" id="notice" hidden>The download link has not been added to this page yet. Check back soon.</p>
+      <div class="qr-row" id="qrRow" hidden>
+        <div class="qr-box"><div id="qr"></div></div>
+        <p>On a computer? Scan this with your phone to download.</p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="gl-wrap" id="glWrap" hidden>
+        <div class="gl-host" id="glHost">
+          <canvas id="glCanvas" tabindex="0" role="img" aria-label="Interactive 3D phone showing the app. Drag to rotate. Press Enter to switch screens."></canvas>
+        </div>
+        <div class="gl-ctrl" role="group" aria-label="Choose a screen">
+          <button type="button" data-screen="0" aria-pressed="true">Feed</button>
+          <button type="button" data-screen="1" aria-pressed="false">Chat</button>
+          <button type="button" data-screen="2" aria-pressed="false">Reels</button>
+        </div>
+        <p class="gl-hint">Drag to spin the phone. Tap the screen to switch. Tap the floating icons. <span class="gl-count" id="glCount" aria-live="polite">0</span></p>
+      </div>
+
+      <div class="phone" id="cssPhone" aria-hidden="true">
+        <div class="phone-bar">
+          <b data-app-name>Linkora</b>
+          <span class="bar-icons">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-9.3-9A5.4 5.4 0 0 1 12 6a5.4 5.4 0 0 1 9.3 6c-2.3 4.6-9.3 9-9.3 9Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/></svg>
+          </span>
+        </div>
+        <div class="stories">
+          <div class="story you"><div class="ring"><div class="av">+</div></div><small>Your story</small></div>
+          <div class="story"><div class="ring"><div class="av t1">AR</div></div><small>aria.r</small></div>
+          <div class="story"><div class="ring"><div class="av t2">DK</div></div><small>dev.k</small></div>
+          <div class="story"><div class="ring"><div class="av">MS</div></div><small>meera</small></div>
+          <div class="story"><div class="ring"><div class="av t1">TJ</div></div><small>tj</small></div>
+        </div>
+        <div class="feed">
+          <div class="post">
+            <div class="who"><div class="av">AR</div><div>aria.r <small>&middot; 2 min ago</small></div></div>
+            <div class="pic"></div>
+            <div class="acts">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-9.3-9A5.4 5.4 0 0 1 12 6a5.4 5.4 0 0 1 9.3 6c-2.3 4.6-9.3 9-9.3 9Z"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 3-9 18-3-8-8-3 20-7Z"/></svg>
+            </div>
+            <p><b>aria.r</b> Sunday market haul. The mangoes are back.</p>
+            <div class="meta">1,248 likes &middot; 36 comments</div>
+          </div>
+        </div>
+        <div class="nav"><i class="on"></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+  </section>
+
+  <dl class="specs">
+    <div class="spec"><dt>Version</dt><dd id="sVersion">1.0.0</dd></div>
+    <div class="spec"><dt>File size</dt><dd id="sSize">24 MB</dd></div>
+    <div class="spec"><dt>Needs</dt><dd id="sAndroid">Android 8.0+</dd></div>
+    <div class="spec"><dt>Updated</dt><dd id="sUpdated">Oct 2026</dd></div>
+  </dl>
+
+  <section>
+    <h2>What you can do</h2>
+    <div class="features">
+      <div class="feature tilt"><h3>Stories</h3><p>Share a moment that disappears after 24 hours. Friends can reply right from the story.</p></div>
+      <div class="feature tilt"><h3>Photos and videos</h3><p>Post pictures and short videos with captions and tags, and see likes and comments as they come in.</p></div>
+      <div class="feature tilt"><h3>Friends and followers</h3><p>Follow people you like and see their latest posts in your feed.</p></div>
+      <div class="feature tilt"><h3>Messages and groups</h3><p>Chat one to one, or make a group for your class, family or friends.</p></div>
+    </div>
+  </section>
+
+  <section class="install" id="install">
+    <div>
+      <h2>Install in three steps</h2>
+      <p class="sub">The app comes as an APK file, so Android asks for one permission the first time.</p>
+    </div>
+    <ol class="steps">
+      <li><div><strong>Download the file</strong><span>Tap Download APK above. Your browser may warn that this type of file can be harmful. Choose Download anyway.</span></div></li>
+      <li><div><strong>Allow the install</strong><span>Open the file. If Android blocks it, tap Settings and allow installs from your browser or Files app, then go back.</span></div></li>
+      <li><div><strong>Tap Install, then Open</strong><span>Sign up with your email or phone number and you are in.</span></div></li>
+    </ol>
+  </section>
+
+  <section class="safe">
+    <p><b>Only install from this page.</b> Files from other sites or forwarded chats can be changed by someone else. If a checksum is listed here, compare it with your downloaded file before installing.</p>
+    <div class="hash" id="hashRow" hidden>SHA-256: <span id="hashVal"></span></div>
+  </section>
+
+  <footer>
+    <span>&copy; <span data-app-name>Linkora</span> 2026</span>
+    <span id="contact"></span>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ===== Edit these values to set up your page ===== */
+var CONFIG = {
+  appName: "Linkora",
+  apkUrl: "https://expo.dev/accounts/tirtharaj_chanda/projects/linkora-react-native/builds/51fc5cc5-99a2-4641-9872-aff7d1139e80",              // paste your APK download link here (Google Drive, GitHub Releases, your server, etc.)
+  version: "1.0.0",
+  fileSize: "86 MB",       // shown beside the button; leave "" to hide
+  minAndroid: "Android 8.0+",
+  updated: "Oct 2026",
+  sha256: "",              // optional checksum of the APK; leave "" to hide
+  contact: ""              // optional, e.g. support email shown in the footer
+};
+/* ================================================= */
+
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  document.querySelectorAll("[data-app-name]").forEach(function (el) { el.textContent = CONFIG.appName; });
+  document.title = CONFIG.appName + " App Download";
+  $("sVersion").textContent = CONFIG.version;
+  $("sSize").textContent = CONFIG.fileSize || "n/a";
+  $("sAndroid").textContent = CONFIG.minAndroid;
+  $("sUpdated").textContent = CONFIG.updated;
+  $("btnMeta").textContent = "v" + CONFIG.version + (CONFIG.fileSize ? " · " + CONFIG.fileSize : "");
+  if (CONFIG.contact) $("contact").textContent = CONFIG.contact;
+  if (CONFIG.sha256) { $("hashVal").textContent = CONFIG.sha256; $("hashRow").hidden = false; }
+
+  var dl = $("dl");
+  if (CONFIG.apkUrl) {
+    dl.href = CONFIG.apkUrl;
+    try {
+      $("qrRow").hidden = false;
+      new QRCode($("qr"), { text: CONFIG.apkUrl, width: 96, height: 96, colorDark: "#15132B", colorLight: "#FFFFFF" });
+    } catch (e) { $("qrRow").hidden = true; }
+  } else {
+    dl.addEventListener("click", function (e) { e.preventDefault(); $("notice").hidden = false; });
+  }
+
+  /* Tilt cards follow the pointer */
+  document.querySelectorAll(".tilt").forEach(function (el) {
+    el.addEventListener("pointermove", function (e) {
+      if (e.pointerType === "touch") return;
+      var r = el.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+      el.style.setProperty("--ry", (x * 10).toFixed(2) + "deg");
+      el.style.setProperty("--rx", (-y * 10).toFixed(2) + "deg");
+    });
+    el.addEventListener("pointerleave", function () {
+      el.style.setProperty("--rx", "0deg");
+      el.style.setProperty("--ry", "0deg");
+    });
+  });
+})();
+</script>
+
+<script>
+/* Interactive 3D phone (Three.js). Falls back to the flat CSS phone if WebGL is unavailable. */
+(function () {
+  var wrap = document.getElementById("glWrap"), flat = document.getElementById("cssPhone");
+  var host = document.getElementById("glHost"), cv = document.getElementById("glCanvas");
+  var countEl = document.getElementById("glCount");
+  var btns = Array.prototype.slice.call(document.querySelectorAll(".gl-ctrl button"));
+  if (!window.THREE || !wrap || !cv) return;
+
+  var renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true }); } catch (err) { return; }
+  if (!renderer.getContext()) return;
+  renderer.setClearColor(0x000000, 0);
+
+  var NAME = (window.CONFIG && CONFIG.appName) || "Linkora";
+  var reduce = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var TAU = Math.PI * 2;
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+  /* ---------- screen textures (drawn with 2D canvas) ---------- */
+  var INK = "#15132B", ACC = "#3D3DF5", CORAL = "#FF7A59", SUN = "#FFC857", T1 = "#FFD9C7", T2 = "#CFF3E2";
+  var SOFT = "#E6E6FF", LINE = "#E4E2F2", MUTED = "#6B6888", BUB = "#EEEDF8";
+  var CW = 512, CH = 1024, W = 360, H = 720, K = CW / W;
+  function FD(w, s) { return w + " " + s + 'px "Bricolage Grotesque", "Trebuchet MS", sans-serif'; }
+  function FB(w, s) { return w + " " + s + 'px "Instrument Sans", system-ui, sans-serif'; }
+  function mk() { var c = document.createElement("canvas"); c.width = CW; c.height = CH; return c; }
+  function rr(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+  function dot(c, x, y, r, f) { c.beginPath(); c.arc(x, y, r, 0, TAU); c.fillStyle = f; c.fill(); }
+  function tx(c, s, x, y, font, col, al) { c.font = font; c.fillStyle = col; c.textAlign = al || "left"; c.textBaseline = "alphabetic"; c.fillText(s, x, y); }
+  function stroke(c, col, w) { c.strokeStyle = col; c.lineWidth = w; c.lineCap = "round"; c.lineJoin = "round"; c.stroke(); }
+  function heart(c, x, y, s) {
+    c.beginPath(); c.moveTo(x, y + s * 0.9);
+    c.bezierCurveTo(x - s * 1.5, y - s * 0.1, x - s * 0.7, y - s * 1.1, x, y - s * 0.35);
+    c.bezierCurveTo(x + s * 0.7, y - s * 1.1, x + s * 1.5, y - s * 0.1, x, y + s * 0.9);
+    c.closePath();
+  }
+  function bubbleIcon(c, x, y, s) {
+    c.beginPath(); c.arc(x, y, s, 0, TAU);
+    c.moveTo(x - s * 0.7, y + s * 0.7); c.lineTo(x - s * 1.2, y + s * 1.4); c.lineTo(x - s * 0.1, y + s * 0.98);
+  }
+  function sendIcon(c, x, y, s) {
+    c.beginPath(); c.moveTo(x - s, y - s * 0.2); c.lineTo(x + s, y - s); c.lineTo(x + s * 0.1, y + s);
+    c.lineTo(x - s * 0.1, y + s * 0.1); c.closePath();
+  }
+  function prep(c, bg) {
+    c.setTransform(K, 0, 0, K, 0, 0); c.clearRect(0, 0, W, H);
+    c.save(); rr(c, 0, 0, W, H, 44); c.clip();
+    c.fillStyle = bg || "#fff"; c.fillRect(0, 0, W, H);
+  }
+  function photo(c, x, y, w, h, r) {
+    c.save(); rr(c, x, y, w, h, r); c.clip();
+    var g = c.createLinearGradient(0, y, 0, y + h); g.addColorStop(0, T1); g.addColorStop(1, SOFT);
+    c.fillStyle = g; c.fillRect(x, y, w, h);
+    dot(c, x + w * 0.74, y + h * 0.3, h * 0.13, SUN);
+    c.beginPath(); c.ellipse(x + w * 0.22, y + h * 1.05, w * 0.6, h * 0.42, 0, 0, TAU); c.fillStyle = T2; c.fill();
+    c.beginPath(); c.ellipse(x + w * 0.88, y + h * 1.1, w * 0.55, h * 0.38, 0, 0, TAU); c.fillStyle = "#BFC0FF"; c.fill();
+    c.restore();
+  }
+
+  function drawFeed(c) {
+    prep(c); dot(c, W / 2, 20, 6, INK);
+    tx(c, NAME, 18, 72, FD(800, 26), INK);
+    heart(c, 296, 58, 9); stroke(c, INK, 2.2);
+    bubbleIcon(c, 334, 57, 9); stroke(c, INK, 2.2);
+    var nm = ["Your story", "aria.r", "dev.k", "meera", "tj"], ini = ["+", "AR", "DK", "MS", "TJ"], fills = [LINE, T1, T2, SOFT, T1];
+    for (var i = 0; i < 5; i++) {
+      var cx = 46 + i * 67;
+      c.beginPath(); c.arc(cx, 118, 29, 0, TAU);
+      if (i) { var g = c.createLinearGradient(cx - 29, 89, cx + 29, 147); g.addColorStop(0, ACC); g.addColorStop(1, CORAL); stroke(c, g, 3); }
+      else { stroke(c, LINE, 2); }
+      dot(c, cx, 118, 24, fills[i]);
+      tx(c, ini[i], cx, i ? 123 : 126, FB(700, i ? 13 : 20), INK, "center");
+      tx(c, nm[i], cx, 164, FB(500, 11), MUTED, "center");
+    }
+    dot(c, 34, 206, 14, SOFT); tx(c, "AR", 34, 210, FB(700, 11), INK, "center");
+    tx(c, "aria.r", 56, 205, FB(700, 14), INK); tx(c, "2 min ago", 56, 219, FB(400, 11), MUTED);
+    photo(c, 0, 230, W, 236, 0);
+    heart(c, 28, 494, 10); stroke(c, INK, 2.2);
+    bubbleIcon(c, 68, 493, 10); stroke(c, INK, 2.2);
+    sendIcon(c, 108, 493, 9); stroke(c, INK, 2.2);
+    tx(c, "aria.r", 18, 534, FB(700, 13), INK);
+    tx(c, "Sunday market haul. The mangoes are back.", 66, 534, FB(400, 13), INK);
+    tx(c, "1,248 likes  ·  36 comments", 18, 556, FB(500, 11), MUTED);
+    dot(c, 34, 596, 14, T1); tx(c, "DK", 34, 600, FB(700, 11), INK, "center"); tx(c, "dev.k", 56, 601, FB(700, 14), INK);
+    photo(c, 0, 620, W, 60, 0);
+    c.fillStyle = "#fff"; c.fillRect(0, 664, W, 56); c.fillStyle = LINE; c.fillRect(0, 664, W, 1);
+    for (var j = 0; j < 4; j++) { rr(c, 45 + j * 90 - 11, 681, 22, 22, 7); c.fillStyle = j ? LINE : ACC; c.fill(); }
+    c.restore();
+  }
+
+  function drawChat(c) {
+    prep(c); dot(c, W / 2, 20, 6, INK);
+    c.beginPath(); c.moveTo(30, 50); c.lineTo(22, 58); c.lineTo(30, 66); stroke(c, INK, 2.4);
+    dot(c, 62, 58, 17, SOFT); tx(c, "MS", 62, 63, FB(700, 12), INK, "center");
+    tx(c, "meera.s", 90, 56, FD(700, 16), INK);
+    dot(c, 94, 69, 3.5, "#2FBF71"); tx(c, "Active now", 102, 73, FB(400, 11), MUTED);
+    c.fillStyle = LINE; c.fillRect(0, 92, W, 1);
+    function bub(s, w, y, mine) {
+      var x = mine ? W - 18 - w : 18;
+      rr(c, x, y, w, 38, 19); c.fillStyle = mine ? ACC : BUB; c.fill();
+      tx(c, s, x + 16, y + 24, FB(500, 14), mine ? "#fff" : INK);
+    }
+    bub("Are you coming tonight?", 196, 116, false);
+    bub("Yes! Save me a seat", 172, 164, true);
+    bub("Always. Send the photos!", 210, 212, false);
+    photo(c, W - 18 - 200, 262, 200, 130, 18);
+    rr(c, W - 18 - 200, 262, 200, 130, 18); stroke(c, ACC, 2);
+    tx(c, "Seen 2 min ago", W - 18, 412, FB(400, 10), MUTED, "right");
+    rr(c, 18, 430, 66, 36, 18); c.fillStyle = BUB; c.fill();
+    dot(c, 38, 448, 3.5, MUTED); dot(c, 51, 448, 3.5, MUTED); dot(c, 64, 448, 3.5, MUTED);
+    rr(c, 16, 640, W - 32 - 52, 44, 22); c.fillStyle = BUB; c.fill();
+    tx(c, "Message...", 34, 667, FB(400, 14), MUTED);
+    dot(c, W - 38, 662, 22, ACC); sendIcon(c, W - 38, 662, 8); stroke(c, "#fff", 2);
+    c.restore();
+  }
+
+  function drawReels(c) {
+    prep(c, INK);
+    var g = c.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, "#1D1B4D"); g.addColorStop(0.45, "#5B3FD1"); g.addColorStop(0.78, CORAL); g.addColorStop(1, SUN);
+    c.fillStyle = g; c.fillRect(0, 0, W, H);
+    dot(c, W / 2 - 20, 500, 66, SUN);
+    c.beginPath(); c.ellipse(60, 745, 250, 125, 0, 0, TAU); c.fillStyle = "rgba(21,19,43,0.92)"; c.fill();
+    c.beginPath(); c.ellipse(320, 755, 230, 115, 0, 0, TAU); c.fillStyle = "rgba(21,19,43,0.92)"; c.fill();
+    dot(c, W / 2, 20, 6, INK);
+    tx(c, "Reels", 18, 70, FD(800, 24), "#fff");
+    c.beginPath(); c.arc(332, 58, 10, 0, TAU); stroke(c, "#fff", 2);
+    heart(c, 324, 420, 13); c.fillStyle = CORAL; c.fill();
+    tx(c, "12.4k", 324, 452, FB(600, 11), "#fff", "center");
+    bubbleIcon(c, 324, 490, 12); stroke(c, "#fff", 2.2);
+    tx(c, "842", 324, 526, FB(600, 11), "#fff", "center");
+    sendIcon(c, 324, 562, 11); stroke(c, "#fff", 2.2);
+    tx(c, "Share", 324, 598, FB(600, 11), "#fff", "center");
+    dot(c, 36, 628, 16, SOFT); tx(c, "DK", 36, 632, FB(700, 11), INK, "center");
+    tx(c, "dev.k", 60, 633, FB(700, 14), "#fff");
+    rr(c, 118, 614, 64, 26, 13); stroke(c, "#fff", 1.5); tx(c, "Follow", 150, 632, FB(600, 12), "#fff", "center");
+    tx(c, "Rooftop sunset with the crew", 18, 664, FB(500, 13), "#fff");
+    rr(c, 18, 692, W - 36, 4, 2); c.fillStyle = "rgba(255,255,255,0.35)"; c.fill();
+    rr(c, 18, 692, (W - 36) * 0.4, 4, 2); c.fillStyle = "#fff"; c.fill();
+    c.restore();
+  }
+
+  function drawBack(c) {
+    prep(c, ACC);
+    var g = c.createLinearGradient(0, 0, W, H); g.addColorStop(0, "#4A4AFF"); g.addColorStop(1, "#6A3DF5");
+    c.fillStyle = g; c.fillRect(0, 0, W, H);
+    c.beginPath(); c.arc(W / 2, H / 2 - 24, 56, 0, TAU); stroke(c, "#fff", 22);
+    tx(c, NAME, W / 2, H / 2 + 86, FD(800, 34), "#fff", "center");
+    tx(c, "Android app", W / 2, H / 2 + 112, FB(500, 13), "rgba(255,255,255,0.75)", "center");
+    c.restore();
+  }
+
+  var cans = [mk(), mk(), mk()], backCan = mk();
+  function paint() {
+    drawFeed(cans[0].getContext("2d")); drawChat(cans[1].getContext("2d")); drawReels(cans[2].getContext("2d")); drawBack(backCan.getContext("2d"));
+  }
+  paint();
+  var aniso = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+  var texs = cans.map(function (c) { var t = new THREE.CanvasTexture(c); t.anisotropy = aniso; return t; });
+  var backTex = new THREE.CanvasTexture(backCan); backTex.anisotropy = aniso;
+  function repaint() { paint(); texs.forEach(function (t) { t.needsUpdate = true; }); backTex.needsUpdate = true; }
+  if (document.fonts && document.fonts.load) {
+    Promise.all([document.fonts.load(FD(800, 26)), document.fonts.load(FB(500, 14)), document.fonts.load(FB(700, 14))]).then(repaint).catch(function () {});
+  }
+
+  /* ---------- scene ---------- */
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(32, 1, 0.1, 60);
+  camera.position.set(0, 0.45, 6.4); camera.lookAt(0, 0, 0);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x9a98c8, 0.95));
+  var key = new THREE.DirectionalLight(0xffffff, 0.85); key.position.set(3, 4, 5); scene.add(key);
+  var fill = new THREE.PointLight(0x7a7aff, 0.9, 20); fill.position.set(-3, -1, 3); scene.add(fill);
+
+  function rrect(w, h, r) {
+    var s = new THREE.Shape(), x = -w / 2, y = -h / 2;
+    s.moveTo(x + r, y); s.lineTo(x + w - r, y); s.quadraticCurveTo(x + w, y, x + w, y + r);
+    s.lineTo(x + w, y + h - r); s.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    s.lineTo(x + r, y + h); s.quadraticCurveTo(x, y + h, x, y + h - r);
+    s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y);
+    return s;
+  }
+
+  var phone = new THREE.Group(); scene.add(phone); phone.userData.kind = "phone";
+  var bodyGeo = new THREE.ExtrudeGeometry(rrect(1.52, 3.0, 0.26), { depth: 0.14, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.03, bevelSegments: 4, curveSegments: 14 });
+  bodyGeo.translate(0, 0, -0.07);
+  var bodyMat = new THREE.MeshStandardMaterial({ color: 0x15132b, roughness: 0.35, metalness: 0.4 });
+  phone.add(new THREE.Mesh(bodyGeo, bodyMat));
+  var btnGeo = new THREE.BoxGeometry(0.04, 0.4, 0.07);
+  var b1 = new THREE.Mesh(btnGeo, bodyMat); b1.position.set(0.8, 0.5, 0); phone.add(b1);
+  var b2 = new THREE.Mesh(btnGeo, bodyMat); b2.position.set(-0.8, 0.85, 0); phone.add(b2);
+  var screenMat = new THREE.MeshBasicMaterial({ map: texs[0], transparent: true });
+  var screen = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 2.8), screenMat); screen.position.z = 0.103; phone.add(screen);
+  var back = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 2.8), new THREE.MeshBasicMaterial({ map: backTex, transparent: true }));
+  back.rotation.y = Math.PI; back.position.z = -0.103; phone.add(back);
+
+  var sc = document.createElement("canvas"); sc.width = sc.height = 128;
+  var sx = sc.getContext("2d"), sg = sx.createRadialGradient(64, 64, 4, 64, 64, 62);
+  sg.addColorStop(0, "rgba(20,18,50,0.45)"); sg.addColorStop(1, "rgba(20,18,50,0)");
+  sx.fillStyle = sg; sx.fillRect(0, 0, 128, 128);
+  var shadow = new THREE.Mesh(new THREE.PlaneGeometry(2.8, 2.8), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(sc), transparent: true, depthWrite: false }));
+  shadow.rotation.x = -Math.PI / 2; shadow.position.y = -1.85; scene.add(shadow);
+
+  /* floating hearts and chat bubbles */
+  function heartGeo() {
+    var s = new THREE.Shape();
+    s.moveTo(0, -0.5); s.bezierCurveTo(-0.9, 0.1, -0.5, 0.75, 0, 0.3); s.bezierCurveTo(0.5, 0.75, 0.9, 0.1, 0, -0.5);
+    var g = new THREE.ExtrudeGeometry(s, { depth: 0.22, bevelEnabled: true, bevelThickness: 0.06, bevelSize: 0.05, bevelSegments: 4, curveSegments: 18 });
+    g.center(); g.scale(0.62, 0.62, 0.62); return g;
+  }
+  function bubbleGeo() {
+    var g = new THREE.ExtrudeGeometry(rrect(0.9, 0.62, 0.24), { depth: 0.12, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.04, bevelSegments: 3, curveSegments: 10 });
+    g.center(); return g;
+  }
+  var HG = heartGeo(), BG = bubbleGeo(), floaters = [], accentMats = [];
+  function addF(geo, color, x, y, z, spd, ph, size, isAccent) {
+    var mat = new THREE.MeshStandardMaterial({ color: color, roughness: 0.3, metalness: 0.15 });
+    var m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.scale.setScalar(size);
+    m.userData = { kind: "floater", bx: x, by: y, spd: spd, ph: ph, sc: size, pulse: 0, depth: z };
+    scene.add(m); floaters.push(m); if (isAccent) accentMats.push(mat); return m;
+  }
+  addF(HG, 0xff7a59, -1.7, 1.15, 0.7, 1.1, 0.0, 1.0, false);
+  addF(BG, 0xffc857, 1.75, 0.75, 0.8, 0.9, 1.3, 0.9, false);
+  addF(BG, 0x5ed6a5, -1.6, -0.95, 0.5, 1.0, 2.2, 0.8, false);
+  addF(HG, 0x3d3df5, 1.65, -1.2, 0.6, 1.2, 3.1, 0.85, true);
+  addF(HG, 0xff7a59, 1.4, 1.75, -0.2, 0.8, 4.0, 0.55, false);
+
+  /* theme-aware colors */
+  function cssVar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+  function isDark() {
+    var a = document.documentElement.getAttribute("data-theme");
+    if (a) return a === "dark";
+    return !!(window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches);
+  }
+  function applyTheme() {
+    bodyMat.color.set(isDark() ? "#4A4880" : "#15132B");
+    var ac = cssVar("--accent");
+    if (ac) accentMats.forEach(function (m) { try { m.color.set(ac); } catch (e) {} });
+    shadow.visible = !isDark();
+  }
+  applyTheme();
+  try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme); } catch (e) {}
+  try { new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] }); } catch (e) {}
+
+  /* ---------- sizing ---------- */
+  function resize() {
+    var w = host.clientWidth, h = host.clientHeight;
+    if (!w || !h) return;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.position.z = Math.max(6.4, 6.8 / camera.aspect);
+    camera.updateProjectionMatrix();
+  }
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(host); else window.addEventListener("resize", resize);
+
+  /* ---------- interaction ---------- */
+  var yaw = 0.5, pitch = 0, vy = 0, px = 0, py = 0, idleT = 2, drag = false, lx = 0, ly = 0, moved = 0, cur = 0, pop = 0, count = 0;
+  var ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+
+  function setScreen(i) {
+    cur = (i + 3) % 3; screenMat.map = texs[cur]; screenMat.needsUpdate = true; pop = 1;
+    btns.forEach(function (b, j) { b.setAttribute("aria-pressed", j === cur ? "true" : "false"); });
+  }
+  btns.forEach(function (b, j) { b.addEventListener("click", function () { setScreen(j); }); });
+
+  function pick(e) {
+    var r = cv.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -(((e.clientY - r.top) / r.height) * 2 - 1));
+    ray.setFromCamera(ndc, camera);
+    var hits = ray.intersectObjects(scene.children, true);
+    for (var i = 0; i < hits.length; i++) {
+      var o = hits[i].object;
+      while (o && !(o.userData && o.userData.kind)) o = o.parent;
+      if (!o) continue;
+      if (o.userData.kind === "floater") { o.userData.pulse = 1; count++; countEl.textContent = count; return; }
+      if (o.userData.kind === "phone") { setScreen(cur + 1); return; }
+    }
+  }
+
+  cv.addEventListener("pointerdown", function (e) {
+    drag = true; lx = e.clientX; ly = e.clientY; moved = 0; vy = 0; idleT = 0;
+    try { cv.setPointerCapture(e.pointerId); } catch (err) {}
+    cv.style.cursor = "grabbing";
+  });
+  cv.addEventListener("pointermove", function (e) {
+    var r = cv.getBoundingClientRect();
+    px = ((e.clientX - r.left) / r.width) * 2 - 1; py = -(((e.clientY - r.top) / r.height) * 2 - 1);
+    if (!drag) return;
+    var dx = e.clientX - lx, dy = e.clientY - ly; lx = e.clientX; ly = e.clientY;
+    moved += Math.abs(dx) + Math.abs(dy);
+    yaw += dx * 0.012; vy = dx * 0.012; pitch = clamp(pitch + dy * 0.008, -0.9, 0.9); idleT = 0;
+  });
+  cv.addEventListener("pointerup", function (e) {
+    if (!drag) return;
+    drag = false; idleT = 0; cv.style.cursor = "grab";
+    if (moved < 6) pick(e);
+  });
+  cv.addEventListener("pointercancel", function () { drag = false; cv.style.cursor = "grab"; });
+  cv.addEventListener("pointerleave", function () { if (!drag) { px = 0; py = 0; } });
+  cv.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowLeft") { yaw -= 0.5; idleT = 0; e.preventDefault(); }
+    else if (e.key === "ArrowRight") { yaw += 0.5; idleT = 0; e.preventDefault(); }
+    else if (e.key === "Enter" || e.key === " ") { setScreen(cur + 1); e.preventDefault(); }
+  });
+
+  /* ---------- loop ---------- */
+  var visible = true, last = performance.now();
+  if (window.IntersectionObserver) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }).observe(host);
+
+  function tick() {
+    requestAnimationFrame(tick);
+    var now = performance.now(), dt = Math.min(0.05, (now - last) / 1000); last = now;
+    if (!visible || document.hidden) return;
+    var t = now / 1000;
+    if (!drag) {
+      idleT += dt;
+      if (Math.abs(vy) > 0.0008) { yaw += vy; vy *= 0.93; }
+      else if (idleT > 1.2) {
+        var base = Math.round(yaw / TAU) * TAU;
+        var tgt = base + (reduce ? 0 : Math.sin(t * 0.7) * 0.25) + px * 0.45;
+        yaw += (tgt - yaw) * 0.06;
+      }
+      if (idleT > 1.0) pitch += (-py * 0.22 - pitch) * 0.06;
+    }
+    phone.rotation.set(pitch, yaw, 0);
+    phone.position.y = reduce ? 0 : Math.sin(t * 0.9) * 0.05;
+    phone.scale.setScalar(1 + pop * 0.05); pop *= 0.9;
+    floaters.forEach(function (m) {
+      var u = m.userData;
+      m.position.x = u.bx + px * 0.18 * (1 + u.depth);
+      m.position.y = u.by + (reduce ? 0 : Math.sin(t * u.spd + u.ph) * 0.12) + py * 0.1;
+      m.rotation.y = (reduce ? 0 : Math.sin(t * 0.5 + u.ph) * 0.6) + yaw * 0.2;
+      m.rotation.z = reduce ? 0 : Math.sin(t * 0.7 + u.ph) * 0.15;
+      u.pulse *= 0.92; m.scale.setScalar(u.sc * (1 + u.pulse * 0.6));
+    });
+    renderer.render(scene, camera);
+  }
+
+  wrap.hidden = false; flat.hidden = true;
+  resize(); tick();
+})();
+</script>
+
+</body></html>
